@@ -1,9 +1,11 @@
+import "antd/dist/antd.css";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ApolloLink } from "@apollo/client";
 import { createUploadLink } from "apollo-upload-client";
 import { AppProps } from "next/app";
 import { Global } from "@emotion/react";
 import { globalStyles } from "../src/commons/styles/globalstyles";
+import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const uplodLink = createUploadLink({
@@ -16,10 +18,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <ApolloProvider client={client}>
-                <Global styles={globalStyles} />
-      <Component {...pageProps} />
-    </ApolloProvider>
+    <RecoilRoot>
+      <ApolloProvider client={client}>
+        <Global styles={globalStyles} />
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </RecoilRoot>
   );
 }
 
